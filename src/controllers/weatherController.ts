@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import {
   generateDublinWeatherData,
   generateLondonWeatherData,
+  generateLondonThreeDayForecast,
+  generateParisWeatherData,
+  generateTokyoWeatherData,
 } from "../services/weatherService.js";
 import { validationResult } from "express-validator";
 
@@ -35,9 +38,14 @@ export const getWeatherData = async (req: Request, res: Response) => {
       finalWeatherData = generateLondonWeatherData();
     } else if (city === "dublin") {
       finalWeatherData = generateDublinWeatherData();
+    } else if (city === "paris") {
+      finalWeatherData = generateParisWeatherData();
+    } else if (city === "tokyo") {
+      finalWeatherData = generateTokyoWeatherData();
     } else {
       // If the city is not london or dublin, we will throw an error
       res.status(404).send("City not found");
+      return;
     }
 
     // We will return the weather data as JSON
@@ -45,5 +53,22 @@ export const getWeatherData = async (req: Request, res: Response) => {
   } catch (error) {
     // If there is an error, we will log it and send a 500 status code
     res.status(500).send("Error in fetching weather data");
+  }
+};
+
+/**
+ * Gets the three-day forecast for London
+ * @param req the request object
+ * @param res the response object
+ */
+export const getLondonThreeDayForecast = async (
+  _req: Request,
+  res: Response
+) => {
+  try {
+    const forecast = generateLondonThreeDayForecast();
+    res.status(200).json(forecast);
+  } catch (error) {
+    res.status(500).send("Error in fetching forecast data");
   }
 };

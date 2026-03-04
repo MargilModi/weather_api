@@ -13,7 +13,7 @@ import { param } from "express-validator";
 export const validateCityName = param("city")
   // We will use the isString method to check if the city param is a string
   .isString()
-  // We will use the isIn method to check if the city param is either london or dublin
-  .isIn(["london", "dublin"])
+  // We will use the isIn method to check if the city param is one of the supported cities
+  .isIn(["london", "dublin", "paris", "tokyo"])
   // We will use the withMessage method to set a custom error message
-  .withMessage("City name must be either london or dublin");
+  .withMessage("City name must be either london, dublin, paris, or tokyo");
