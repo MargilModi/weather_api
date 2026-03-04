@@ -10,3 +10,10 @@ interface ThreeDayForecast {
   dayTwo: number;
   dayThree: number;
 }
+
+interface SeismicData {
+  id: string;
+  magnitude: number;
+  latitude: string;
+  longitude: string;
+}
